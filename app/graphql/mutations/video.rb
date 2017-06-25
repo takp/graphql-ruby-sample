@@ -1,12 +1,16 @@
-Mutations::Video = GraphQL::Relay::Mutation.define do
-  name "Video"
-  # TODO: define return fields
-  # return_field :post, Types::PostType
+Mutations::Video = GraphQL::ObjectType.define do
+  name "Mutation"
 
-  # TODO: define arguments
-  # input_field :name, !types.String
+  field :add_video do
+    type Types::VideoType
+    description "Mutate video"
+    argument :video, Types::VideoInputType
 
-  resolve ->(obj, args, ctx) {
-    # TODO: define resolve function
-  }
+    resolve ->(o, args, c) {
+      Video.create(
+        title:   args.to_h['video']['title'],
+        watched: false
+      )
+    }
+  end
 end
