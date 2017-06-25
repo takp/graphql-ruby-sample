@@ -1,24 +1,80 @@
-# README
+# graphql-ruby-sample
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is sample project for [GraphQL](http://graphql.org/) with Ruby on Rails.
 
-Things you may want to cover:
+## Versions
 
-* Ruby version
+- Ruby 2.3.1
+- Rails 5.1.1
 
-* System dependencies
+## Run
 
-* Configuration
+```bash
+$ bundle
+$ bin/rake migrate
+$ bin/rails s
+```
 
-* Database creation
+and open [http://localhost:3000/graphiql](http://localhost:3000/graphiql).
 
-* Database initialization
+## Get video by ID
 
-* How to run the test suite
+Input
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+{
+  video(id: 1){
+    id,
+    title,
+    watched,
+  }
+}
+```
 
-* Deployment instructions
+and you can get
 
-* ...
+```
+{
+  "data": {
+    "video": {
+      "id": "1",
+      "title": "Hoge movie",
+      "watched": true
+    }
+  }
+}
+```
+
+## Mutate video
+
+Input
+
+```
+mutation Video {
+  add_video(video:{title: "AAA"}) {
+    id,
+    title,
+    watched
+  }
+}
+```
+
+and you can get
+
+```
+{
+  "data": {
+    "add_video": {
+      "id": "23",
+      "title": "AAA",
+      "watched": false
+    }
+  }
+}
+```
+
+# Ref
+
+- http://graphql.org/
+- http://graphql-ruby.org/
+- https://github.com/rmosolgo/graphql-ruby
